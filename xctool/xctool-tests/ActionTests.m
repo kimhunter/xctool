@@ -117,6 +117,20 @@
   assertThat(action.name, equalTo(@"SomeName"));
 }
 
+- (void)testMapOptionWithMissingValue
+{
+  NSMutableArray *arguments = [NSMutableArray arrayWithArray:@[@"-name"]];
+  FakeAction *action = [[[FakeAction alloc] init] autorelease];
+  
+  NSString *errorMessage = nil;
+  NSUInteger consumed = [action consumeArguments:arguments errorMessage:&errorMessage];
+  assertThat(errorMessage, equalTo(nil));
+  
+  assertThatInteger(consumed, equalToInteger(1));
+  assertThatInteger(arguments.count, equalToInteger(0));
+  assertThat(action.name, equalTo(nil));
+}
+
 - (void)testMatcherOptionSetsValue
 {
   NSMutableArray *arguments = [NSMutableArray arrayWithArray:@[

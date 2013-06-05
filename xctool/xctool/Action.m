@@ -191,9 +191,10 @@
       } else if (matchingNamedOption[kActionOptionMapToSelector]) {
         SEL sel = sel_registerName([matchingNamedOption[kActionOptionMapToSelector] UTF8String]);
         NSString *nextArgument = arguments.count > 1 ? arguments[1] : nil;
+        int stepBy = (nextArgument) ? 2 : 1;
         objc_msgSend(self, sel, nextArgument);
-        count += 2;
-        [arguments removeObjectsInRange:NSMakeRange(0, 2)];
+        count += stepBy;
+        [arguments removeObjectsInRange:NSMakeRange(0, stepBy)];
         continue;
       }
     }
